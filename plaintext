@@ -1,0 +1,14 @@
+spb-invest-guide/
+├── index.html
+├── industries.html
+├── investor-window.html
+├── digital-services.html
+├── projects.html
+├── contacts.html
+├── qa.html
+├── invest-map.html
+├── feedback.html
+└── assets/
+    ├── css/style.css
+    ├── js/main.js
+    └── img/  (картинки с Я.Диска)
