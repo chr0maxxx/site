@@ -251,6 +251,15 @@ font-size: clamp(20px, 3vw, 36px);
 letter-spacing: 1px;
 line-height: 1.2;
 }
+.slide-desc{
+font-family: 'Roboto', sans-serif;
+font-weight: 400;
+color: var(--text);
+font-size: clamp(14px, 2vw, 18px);
+margin-top: 12px;
+line-height: 1.5;
+opacity: 0.9;
+}
 /* Точки пагинации */
 .slider-dots{
 display: flex;
@@ -634,6 +643,7 @@ section{padding:90px 24px}
     <img id="slideImg" class="slide-image" src="" alt="Объект">
     <div class="slide-caption">
         <div id="slideText" class="slide-text">Подпись</div>
+        <div id="slideDesc" class="slide-desc"></div>
     </div>
 </div>
 <div class="slider-dots" id="sliderDotsContainer">
@@ -703,23 +713,28 @@ section{padding:90px 24px}
 const slideData = [
     { 
         img: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80', 
-        text: 'СКА АРЕНА — 21 500 / 23 000 мест' 
+        text: 'СКА АРЕНА — 21 500 / 23 000 мест',
+        desc: 'Крупнейшая хоккейная арена Европы, центр притяжения спортивных событий.' 
     },
     { 
-        img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80', 
-        text: 'ЛАХТА ЦЕНТР — 462 метра' 
+        img: ' https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80', 
+        text: 'ЛАХТА ЦЕНТР — 462 метра',
+        desc: 'Высочайший небоскреб Европы, деловой и культурный центр города.' 
     },
     { 
-        img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80', 
-        text: 'ЗАПАДНЫЙ СКОРОСТНОЙ ДИАМЕТР' 
+        img: ' https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80', 
+        text: 'ЗАПАДНЫЙ СКОРОСТНОЙ ДИАМЕТР',
+        desc: 'Скоростная магистраль, связывающая север и юг города, разгружающая трафик.' 
     },
     { 
-        img: 'https://images.unsplash.com/photo-1436491865332-7a61a109bb05?w=800&q=80', 
-        text: 'АЭРОПОРТ ПУЛКОВО' 
+        img: ' https://images.unsplash.com/photo-1436491865332-7a61a109bb05?w=800&q=80', 
+        text: 'АЭРОПОРТ ПУЛКОВО',
+        desc: 'Международные воздушные ворота Санкт-Петербурга с современным терминалом.' 
     },
     { 
-        img: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80', 
-        text: 'ВСЕСЕЗОННЫЙ КУРОРТ «МАРИНА»' 
+        img: ' https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80', 
+        text: 'ВСЕСЕЗОННЫЙ КУРОРТ «МАРИНА»',
+        desc: 'Уникальный курортный комплекс на берегу Финского залива.' 
     }
 ];
 
@@ -752,6 +767,11 @@ function updateSlide(index) {
     slideImg.src = data.img;
     slideTextEl.textContent = data.text;
     
+    // Обновляем описание, если элемент существует
+    const slideDescEl = document.getElementById('slideDesc');
+    if (slideDescEl) {
+        slideDescEl.textContent = data.desc || '';
+    }
     document.querySelectorAll('.slider-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
     });
