@@ -1,0 +1,869 @@
+Привет, досконально изучи мой код странички:
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Путеводитель инвестора — Санкт-Петербург</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#ffffff;
+--text:#1a1f2b; 
+--muted:#4a5b6e;
+--accent:#181F39; /* Синий */
+--accent-2:#CEE9FB; /* Голубой */
+--gold: #C5A059; /* Золотой */
+--red: #E30613; /* Красный */
+--accent-light: #dce6f5;
+--accent-glow: rgba(24,31,57,.12);
+--card:#ffffff;
+--border:rgba(24,31,57,0.25);
+--shadow:0 8px 30px rgba(0,0,0,0.06);
+}
+html{scroll-behavior:smooth}
+body{
+font-family:'Roboto',sans-serif;font-weight:400;
+background:var(--bg);color:var(--text);
+overflow-x:hidden;line-height:1.7;
+}
+::selection{background:var(--accent);color:#fff}
+
+h1,h2,h3,h4,.heading,.btn,.nav-links a,.nav-cta,.section-sub,.tl-year,.stat-num,.service-card h3,.tl-dot-year,.tl-popup-year{
+font-family:'Oswald',sans-serif;text-transform:uppercase;
+letter-spacing:1px;font-weight:500;
+}
+
+body { background: #f8fafd; }
+
+nav{
+position:fixed;top:0;left:0;right:0;z-index:1000;
+padding:22px 60px;display:flex;justify-content:space-between;align-items:center;
+backdrop-filter:blur(10px);background:rgba(255,255,255,.92);
+border-bottom:1px solid rgba(24,31,57,0.08);
+transition:all .5s cubic-bezier(.4,0,.2,1);
+}
+nav.scrolled{padding:14px 60px;background:rgba(255,255,255,.98); box-shadow:0 2px 20px rgba(0,0,0,0.04)}
+.logo{
+font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;
+text-transform:uppercase;letter-spacing:3px;
+background:linear-gradient(135deg,var(--accent),#3a5280);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+position:relative;
+}
+.logo::before{
+content:'';position:absolute;left:-12px;top:50%;
+width:6px;height:6px;border-radius:50%;
+background:var(--accent);transform:translateY(-50%);
+box-shadow:0 0 12px var(--accent);
+animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+0%,100%{transform:translateY(-50%) scale(1);opacity:1}
+50%{transform:translateY(-50%) scale(1.5);opacity:.5}
+}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+color:var(--text);text-decoration:none;font-size:13px;
+position:relative;transition:color .3s;letter-spacing:2px;
+}
+.nav-links a::after{
+content:'';position:absolute;bottom:-6px;left:50%;
+width:0;height:2px;background:var(--accent);
+transition:all .4s;transform:translateX(-50%);
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+padding:11px 24px;border:1px solid var(--accent);
+border-radius:30px;color:var(--accent);
+font-size:12px;font-weight:500;text-decoration:none;
+letter-spacing:2px;transition:all .4s;position:relative;overflow:hidden;
+background:transparent;
+}
+.nav-cta::before{
+content:'';position:absolute;inset:0;
+background:var(--accent);transform:translateX(-100%);
+transition:transform .4s;z-index:-1;
+}
+.nav-cta:hover{color:#fff;border-color:var(--accent)}
+.nav-cta:hover::before{transform:translateX(0)}
+
+.hero{
+min-height:100vh;display:flex;align-items:center;
+padding:140px 60px 80px;position:relative;overflow:hidden;
+}
+.hero-content{position:relative;z-index:3;max-width:1100px;margin:0 auto;text-align:center}
+.hero-tag{
+display:inline-block;padding:10px 24px;
+border:1px solid var(--border);border-radius:30px;
+font-size:11px;color:var(--accent);letter-spacing:4px;
+margin-bottom:36px;
+opacity:0;animation:slideDown 1s .2s forwards;
+position:relative;overflow:hidden;
+background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+}
+.hero h1{
+font-size:clamp(44px,7vw,96px);font-weight:600;
+line-height:1.05;margin-bottom:28px;letter-spacing:2px;
+color:#1a1f2b;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{
+display:inline-block;transform:translateY(120%);
+animation:lineUp 1.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+.hero h1 .line:nth-child(1) span{animation-delay:.4s}
+.hero h1 .line:nth-child(2) span{animation-delay:.7s}
+@keyframes lineUp{to{transform:translateY(0)}}
+.hero h1 .accent{
+background:linear-gradient(135deg,var(--accent),#5f7bbf);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{
+font-family:'Roboto',sans-serif;font-size:18px;color:#4a5568;
+max-width:720px;margin:0 auto 44px;
+text-transform:none;letter-spacing:0;font-weight:300;
+opacity:0;animation:fadeUp 1s 1.2s forwards;
+}
+.hero-btns{
+display:flex;gap:20px;justify-content:center;flex-wrap:wrap;
+opacity:0;animation:fadeUp 1s 1.5s forwards;
+}
+.btn{
+padding:18px 40px;border-radius:40px;
+font-size:13px;font-weight:500;text-decoration:none;
+display:inline-flex;align-items:center;gap:12px;
+transition:all .5s cubic-bezier(.4,0,.2,1);
+cursor:pointer;border:none;letter-spacing:3px;
+position:relative;overflow:hidden;
+}
+.btn-primary{
+background:linear-gradient(135deg,var(--accent),#37548b);
+color:#fff;box-shadow:0 10px 30px rgba(24,31,57,.25);
+}
+.btn-primary:hover{
+transform:translateY(-4px);
+box-shadow:0 20px 50px rgba(24,31,57,.35);
+}
+.btn-outline{
+border:1px solid var(--border);color:var(--text);
+background:rgba(255,255,255,.8);backdrop-filter:blur(10px);
+}
+.btn-outline:hover{color:#fff;border-color:var(--accent)}
+.btn-outline:hover::before{transform:scaleX(1)}
+.scroll-hint{
+position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+z-index:3;color:var(--muted);font-size:11px;letter-spacing:3px;
+display:flex;flex-direction:column;align-items:center;gap:14px;
+font-family:'Oswald',sans-serif;text-transform:uppercase;
+opacity:0;animation:fadeUp 1s 2s forwards;
+}
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+@keyframes slideDown{
+from{opacity:0;transform:translateY(-30px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+section{padding:140px 60px;position:relative;z-index:2}
+.container{max-width:1280px;margin:0 auto}
+.section-title{
+font-size:clamp(36px,4.5vw,64px);font-weight:600;
+margin-bottom:22px;line-height:1.1;letter-spacing:2px;
+color:#1a1f2b;
+}
+.section-title .accent{
+background:linear-gradient(135deg,var(--accent),#5a73a5);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.section-sub{
+color:var(--gold);font-size:12px;letter-spacing:5px;
+margin-bottom:20px;font-weight:500;
+display:inline-flex;align-items:center;gap:14px;
+}
+.section-sub::before{
+content:'';width:40px;height:1px;background:var(--gold);
+display:inline-block;
+}
+.section-text{
+font-family:'Roboto',sans-serif;color:var(--muted);
+font-size:16px;max-width:800px;margin-bottom:60px;
+text-transform:none;letter-spacing:0;font-weight:300;line-height:1.8;
+}
+
+.frost-bg{
+position:absolute;inset:0;z-index:-1;
+background:linear-gradient(180deg,var(--accent-2),rgba(255,255,255,.95));
+backdrop-filter:blur(8px);
+}
+
+.reveal{opacity:0;transition:all 1.2s cubic-bezier(.4,0,.2,1)}
+.reveal.up{transform:translateY(80px)}
+.reveal.left{transform:translateX(-80px)}
+.reveal.right{transform:translateX(80px)}
+.reveal.visible{opacity:1;transform:translate(0) scale(1)}
+
+/* ========================================= */
+/* Секция с точками притяжения */
+/* ========================================= */
+.about-grid{
+display:grid;
+grid-template-columns: 1.3fr 1fr;
+gap: 60px;
+align-items: start;
+}
+@media(max-width: 900px){
+.about-grid{grid-template-columns: 1fr; gap: 40px;}
+}
+
+/* --- Слайдер (Левая колонка) --- */
+.slider-wrapper{
+position: relative;
+border-radius: 28px;
+overflow: hidden;
+box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+background: #fff;
+}
+.slide-image{
+width: 100%;
+aspect-ratio: 4/3;
+object-fit: cover;
+display: block;
+border-radius: 28px 28px 0 0;
+}
+.slide-caption{
+background: white;
+padding: 22px 20px;
+text-align: center;
+min-height: 90px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.slide-text{
+font-family: 'Oswald', sans-serif;
+font-weight: 600;
+color: var(--red);
+font-size: clamp(20px, 3vw, 36px);
+letter-spacing: 1px;
+line-height: 1.2;
+}
+/* Точки пагинации */
+.slider-dots{
+display: flex;
+justify-content: center;
+gap: 14px;
+margin-top: 20px;
+}
+.slider-dot{
+width: 16px;
+height: 16px;
+border-radius: 50%;
+background: #e0e4e8;
+border: none;
+cursor: pointer;
+transition: all .3s ease;
+}
+.slider-dot.active{
+background: var(--red);
+transform: scale(1.1);
+}
+.slider-dot:hover:not(.active){
+background: #aaa;
+}
+
+/* --- Текст (Правая колонка) --- */
+.about-text{
+padding-left: 10px;
+}
+.about-text .section-sub{
+color: var(--gold);
+font-size: 12px;
+letter-spacing: 5px;
+margin-bottom: 20px;
+font-weight: 500;
+display: inline-flex;
+align-items: center;
+gap: 14px;
+}
+.about-text .section-sub::before{
+content: '';
+width: 40px;
+height: 1px;
+background: var(--gold);
+display: inline-block;
+}
+
+/* Заголовок: ТОЧКИ ПРИТЯЖЕНИЯ ПЕТЕРБУРГА (без "НОВОГО") */
+.fancy-title-group{
+font-family: 'Oswald', sans-serif;
+font-weight: 600;
+font-size: clamp(32px, 4.5vw, 64px);
+line-height: 1.1;
+margin-bottom: 30px;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: var(--accent);
+}
+.fancy-title-group .gold-text{
+color: var(--gold);
+}
+
+/* Текст абзацев */
+.about-text p{
+font-family:'Roboto',sans-serif;
+margin-bottom: 16px;
+color: #4a5568;
+font-size: 16px;
+text-transform: none;
+letter-spacing: 0;
+font-weight: 300;
+line-height: 1.8;
+}
+.about-text .highlight{
+color: var(--accent);
+font-weight: 500;
+}
+
+/* ---------------------------------------- */
+/* Остальные стили (статистика, окно, таймлайн) */
+/* ---------------------------------------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:100px}
+.stat{
+padding:40px 28px;background:var(--card);
+border:1px solid #eef0f2;border-radius:20px;
+box-shadow:var(--shadow);
+transition:all .6s cubic-bezier(.4,0,.2,1);
+position:relative;overflow:hidden;
+}
+.stat::before{
+content:'';position:absolute;top:0;left:0;width:100%;height:3px;
+background:linear-gradient(90deg,var(--accent),var(--accent-2));
+transform:scaleX(0);transform-origin:left;transition:transform .6s;
+}
+.stat:hover{transform:translateY(-12px);border-color:var(--accent);box-shadow:0 20px 40px rgba(0,0,0,0.08)}
+.stat:hover::before{transform:scaleX(1)}
+.stat-num{
+font-size:54px;font-weight:600;
+background:linear-gradient(135deg,var(--accent),#3f5c96);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+margin-bottom:10px;letter-spacing:1px;
+}
+.stat-label{
+font-family:'Roboto',sans-serif;color:var(--muted);font-size:14px;
+text-transform:none;letter-spacing:0;font-weight:300;line-height:1.5;
+}
+
+.window-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.window-card{
+padding:54px;background:var(--card);
+border:1px solid var(--border);border-radius:24px;
+box-shadow:var(--shadow);
+position:relative;overflow:hidden;transition:all .5s;
+}
+.window-card-inner{
+position:relative;z-index:2;background:var(--card);
+border-radius:22px;padding:50px;margin:-50px;
+}
+.window-card h3{font-size:26px;margin-bottom:24px;letter-spacing:2px;color:#1a1f2b}
+.window-card p{
+font-family:'Roboto',sans-serif;color:#4a5568;margin-bottom:18px;
+text-transform:none;letter-spacing:0;font-weight:300;
+}
+.window-link{
+display:inline-flex;align-items:center;gap:10px;
+color:var(--accent);text-decoration:none;
+font-family:'Oswald',sans-serif;
+text-transform:uppercase;letter-spacing:3px;font-size:13px;
+font-weight:500;margin-top:14px;transition:gap .4s;
+}
+.window-link:hover{gap:20px}
+
+.timeline-wrap{
+position:relative;
+margin-top:100px;
+min-height:600px;
+width:100%;
+overflow-x:visible;
+}
+.timeline-svg{
+width:100%;
+height:auto;
+display:block;
+overflow:visible;
+}
+.tl-path{
+fill:none;
+stroke:var(--accent);
+stroke-width:3.2;
+stroke-linecap:round;
+stroke-linejoin:round;
+stroke-dasharray:4500;
+stroke-dashoffset:4500;
+filter:drop-shadow(0 0 6px rgba(24,31,57,.3));
+transition:stroke-dashoffset 3.2s cubic-bezier(.4,0,.2,1);
+}
+.timeline-wrap.in .tl-path{stroke-dashoffset:0}
+.tl-dot{
+cursor:pointer;
+transition:transform .4s cubic-bezier(.4,0,.2,1);
+transform-origin:center;
+transform-box:fill-box;
+}
+.tl-dot circle.outer{
+fill:#fff;stroke:var(--accent);stroke-width:3;
+transition:all .4s;
+}
+.tl-dot circle.inner{
+fill:var(--accent);transition:all .4s;
+}
+.tl-dot:hover circle.outer{stroke-width:5;r:42;filter:drop-shadow(0 0 14px rgba(24,31,57,.6));}
+.tl-dot:hover circle.inner{r:24}
+.tl-dot text{
+font-family:'Oswald',sans-serif;font-weight:600;
+fill:#ffffff;text-anchor:middle;font-size:16px;
+letter-spacing:1px;pointer-events:none;
+}
+.tl-dot.appear{animation:dotPop .6s cubic-bezier(.4,0,.2,1) backwards}
+@keyframes dotPop{
+from{opacity:0;transform:scale(0)}
+to{opacity:1;transform:scale(1)}
+}
+.tl-popup{
+position:absolute;
+width:360px;
+background:rgba(255,255,255,.98);
+border:1px solid var(--accent);
+border-radius:24px;
+padding:0;
+overflow:visible;
+box-shadow:0 30px 60px rgba(0,0,0,.15),0 0 20px rgba(24,31,57,.2);
+opacity:0;
+pointer-events:none;
+transform:translateY(12px) scale(0.96);
+transition:all .35s cubic-bezier(.2,.9,.4,1.1);
+z-index:70;
+backdrop-filter:blur(12px);
+}
+.tl-popup.show{
+opacity:1;
+transform:translateY(0) scale(1);
+pointer-events:auto;
+}
+.tl-popup.multi{width:760px;}
+.tl-popup-inner{
+padding:0;
+background:#fff;
+border-radius:24px;
+overflow:hidden;
+}
+.popup-grid{display:flex;flex-direction:column;gap:0;}
+.popup-item{
+display:flex;
+border-bottom:1px solid #eef0f2;
+padding:20px;
+gap:20px;
+align-items:center;
+}
+.popup-item:last-child{border-bottom:none;}
+.popup-item-img{
+width:120px;
+height:90px;
+border-radius:14px;
+object-fit:cover;
+flex-shrink:0;
+background:#f5f6f8;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+.popup-item-info{flex:1;}
+.popup-item-year{
+font-family:'Oswald',sans-serif;
+font-size:13px;
+letter-spacing:1px;
+color:var(--accent);
+font-weight:500;
+margin-bottom:4px;
+}
+.popup-item-title{
+font-family:'Oswald',sans-serif;
+font-size:16px;
+font-weight:600;
+text-transform:uppercase;
+color:#1a1f2b;
+margin-bottom:6px;
+line-height:1.3;
+}
+.popup-item-desc{
+font-family:'Roboto',sans-serif;
+font-size:13px;
+color:var(--muted);
+line-height:1.5;
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+overflow:hidden;
+}
+@media(max-width:800px){
+.tl-popup.multi{width:94vw; left:3vw!important;}
+.popup-item{flex-direction:column;align-items:flex-start;}
+.popup-item-img{width:100%;height:140px;}
+}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px}
+.service-card{
+padding:44px 34px;background:var(--card);
+border:1px solid #eef0f2;border-radius:20px;
+box-shadow:var(--shadow);
+transition:all .6s cubic-bezier(.4,0,.2,1);
+position:relative;overflow:hidden;
+}
+.service-card::before{
+content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+background:linear-gradient(90deg,transparent,var(--accent-glow),transparent);
+transition:left 1s;
+}
+.service-card:hover::before{left:100%}
+.service-card:hover{transform:translateY(-14px);border-color:var(--accent);box-shadow:0 30px 60px rgba(0,0,0,0.08)}
+.service-icon{
+width:64px;height:64px;border-radius:16px;
+background:linear-gradient(135deg,var(--accent),#5173ad);
+display:flex;align-items:center;justify-content:center;
+font-size:30px;margin-bottom:26px;color:#fff;
+transition:all .5s;box-shadow:0 10px 30px rgba(24,31,57,.25);
+}
+.service-card:hover .service-icon{transform:rotate(-10deg) scale(1.1);box-shadow:0 15px 40px rgba(24,31,57,.4)}
+.service-card h3{font-size:22px;margin-bottom:16px;font-weight:500;letter-spacing:2px;color:#1a1f2b}
+.service-card p{
+font-family:'Roboto',sans-serif;color:#4a5568;font-size:14.5px;margin-bottom:22px;
+text-transform:none;letter-spacing:0;font-weight:300;line-height:1.7;
+}
+.service-card a{
+color:var(--accent);text-decoration:none;font-weight:500;
+font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;
+display:inline-flex;align-items:center;gap:10px;transition:gap .3s;
+}
+.service-card a:hover{gap:18px}
+.hide-link a {display:none;}
+
+footer{
+padding:90px 60px 40px;
+border-top:1px solid rgba(24,31,57,0.08);
+background:#fff;position:relative;z-index:2;
+}
+.footer-grid{
+max-width:1280px;margin:0 auto;
+display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;
+padding-bottom:50px;
+border-bottom:1px solid rgba(24,31,57,0.08);
+}
+.footer-grid h4{font-size:18px;margin-bottom:22px;color:var(--accent);letter-spacing:2px;font-weight:500}
+.footer-grid p,.footer-grid a{
+font-family:'Roboto',sans-serif;color:var(--muted);font-size:14.5px;
+text-decoration:none;display:block;margin-bottom:10px;
+transition:color .3s;text-transform:none;letter-spacing:0;font-weight:300;
+}
+.footer-grid a:hover{color:var(--accent)}
+.copy{
+max-width:1280px;margin:30px auto 0;
+text-align:center;color:var(--muted);font-size:13px;
+font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:3px;
+}
+
+@media(max-width:900px){
+nav{padding:16px 24px}
+nav.scrolled{padding:12px 24px}
+.nav-links{display:none}
+section{padding:90px 24px}
+.hero{padding:120px 24px 60px}
+.stats,.services-grid{grid-template-columns:1fr 1fr;gap:18px}
+.window-grid{grid-template-columns:1fr}
+.window-card{padding:36px}
+.window-card-inner{padding:32px;margin:-32px}
+.timeline-wrap{min-height:auto}
+.tl-popup{width:300px}
+.tl-popup.multi{width:92vw}
+.slider-wrapper{width:100%}
+}
+@media(max-width:560px){
+.stats,.services-grid{grid-template-columns:1fr}
+.hero-btns{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+<div class="logo">Guide Invest · СПб</div>
+<ul class="nav-links">
+<li><a href="#about">О городе</a></li>
+<li><a href="#window">Окно инвестора</a></li>
+<li><a href="#timeline">Проекты</a></li>
+<li><a href="#services">Сервисы</a></li>
+<li><a href="#contact">Контакты</a></li>
+</ul>
+<a href="#contact" class="nav-cta">Связаться</a>
+</nav>
+
+<section class="hero">
+<div class="hero-content">
+<span class="hero-tag">Интерактивный путеводитель инвестора</span>
+<h1><div class="line"><span>Инвестиции в <span class="accent">Санкт-Петербург</span></span></div><div class="line"><span>— основные причины</span></div></h1>
+<p>Откройте для себя возможности развития бизнеса в одном из самых динамичных регионов России — городе с богатой историей, мощной инфраструктурой и амбициозным будущим.</p>
+<div class="hero-btns"><a href="#about" class="btn btn-primary">Узнать больше →</a><a href="#services" class="btn btn-outline">Цифровые сервисы</a></div>
+</div>
+<div class="scroll-hint">Scroll</div>
+</section>
+
+<section id="about">
+<div class="frost-bg"></div>
+<div class="container">
+<div class="about-grid">
+<!-- ЛЕВАЯ КОЛОНКА: Слайдер с фото и подписями -->
+<div class="slider-wrapper reveal left" id="sliderWrapper">
+    <img id="slideImg" class="slide-image" src="" alt="Объект">
+    <div class="slide-caption">
+        <div id="slideText" class="slide-text">Подпись</div>
+    </div>
+</div>
+<div class="slider-dots" id="sliderDotsContainer">
+    <!-- Точки -->
+</div>
+
+<!-- ПРАВАЯ КОЛОНКА: Полный текст -->
+<div class="about-text reveal right">
+    <div class="section-sub">Приоритетные отрасли</div>
+    
+    <div class="fancy-title-group">
+        <div>ТОЧКИ</div>
+        <div>ПРИТЯЖЕНИЯ</div>
+        <div class="gold-text">ПЕТЕРБУРГА</div>
+    </div>
+
+    <p>Туристическая привлекательность Петербурга складывается не только из его исторических достопримечательностей. Сегодня новыми точками притяжения уже стали <b>СКА Арена</b> — самый большой ледовый стадион в мире, <b>Лахта Центр</b> — самый северный небоскрёб в мире (462 метра).</p>
+    
+    <p>Существенный вклад в развитие экономики вносят ключевые инфраструктурные объекты: Западный скоростной диаметр, высокоскоростная магистраль Москва—Санкт-Петербург, аэропорт Пулково.</p>
+    
+    <p>Всесезонный курорт «Санкт-Петербург Марина» — новый масштабный туристско-рекреационный кластер.</p>
+</div>
+</div>
+
+<div class="stats">
+<div class="stat reveal up"><div class="stat-num" data-target="5" data-prefix="ТОП-">ТОП-5</div><div class="stat-label">регионов РФ по предпринимательской активности</div></div>
+<div class="stat reveal up" style="transition-delay:.1s"><div class="stat-num" data-target="3" data-suffix=" место">3 место</div><div class="stat-label">в национальном рейтинге научно-технологического развития</div></div>
+<div class="stat reveal up" style="transition-delay:.2s"><div class="stat-num" data-target="1734.8" data-decimals="1">1734.8</div><div class="stat-label">млрд ₽ — инвестиции в основной капитал за 2025 год</div></div>
+<div class="stat reveal up" style="transition-delay:.3s"><div class="stat-num" data-target="462" data-suffix=" м">462 м</div><div class="stat-label">Лахта Центр — самый северный небоскрёб в мире</div></div>
+</div>
+</div>
+</section>
+
+<section id="window">
+<div class="frost-bg"></div>
+<div class="container"><div class="window-grid"><div class="reveal left"><div class="section-sub">Единое окно</div><h2 class="section-title">Узнайте больше в <span class="accent">едином окне</span> для инвестора</h2><p style="font-family:'Roboto',sans-serif;font-weight:300;color:#4a5568;font-size:16px;line-height:1.8">«Окно инвестора» — комплексный механизм сопровождения инвестиционных проектов для упрощения взаимодействия с органами власти.</p><p style="font-family:'Roboto',sans-serif;font-weight:300;color:#4a5568;font-size:16px;line-height:1.8">Сервис помогает инвесторам получать информацию, консультации и поддержку на всех этапах.</p></div><div class="window-card reveal right"><div class="window-card-inner"><h3>Информационно-консультативное содействие</h3><p>Сопровождение по вопросам реализации проектов, мер поддержки, законодательства.</p><p>Содействие в получении статуса стратегического инвестора или партнёра Санкт-Петербурга.</p><p>Доступ к мерам господдержки и особым условиям взаимодействия с городом.</p><a href="https://spbinvestment.ru" class="window-link" target="_blank">spbinvestment.ru →</a></div></div></div></div>
+</section>
+
+<section id="timeline"><div class="frost-bg"></div><div class="container"><div class="reveal up"><div class="section-sub">Реализованные проекты</div><h2 class="section-title">Ключевые объекты <span class="accent">Санкт-Петербурга</span></h2><p class="section-text">Масштабные инфраструктурные, спортивные и культурные проекты, преобразившие облик города. Наведите курсор на любую точку, чтобы узнать подробнее.</p></div><div class="timeline-wrap" id="timelineWrap"><svg class="timeline-svg" viewBox="0 0 1200 480" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="pathGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#181F39"/><stop offset="50%" stop-color="#CEE9FB"/><stop offset="100%" stop-color="#181F39"/></linearGradient></defs><path class="tl-path" id="timelinePath" d=""/></svg><div class="tl-popup" id="tlPopup"><div class="tl-popup-inner" id="popupInner"></div></div></div></div></section>
+
+<section id="services"><div class="frost-bg"></div><div class="container"><div class="reveal up"><div class="section-sub">Инструменты инвестора</div><h2 class="section-title">Вам доступны <span class="accent">цифровые сервисы</span></h2><p class="section-text">Цифровые сервисы для инвесторов позволяют быстро оценить перспективы проекта и принять эффективное решение.</p></div><div class="services-grid"><div class="service-card reveal up"><div class="service-icon">🧭</div><h3>Навигатор мер поддержки</h3><p>13 мер поддержки инвесторов с капиталами от 5 до 200 млн ₽. Привлечённые инвестиции — поддержка на 15 и 20 лет.</p><a href="#">Узнать подробнее →</a></div><div class="service-card reveal up hide-link" style="transition-delay:.15s"><div class="service-icon">📊</div><h3>Калькулятор налоговых льгот</h3><p>Рассчитайте налоговую льготу. Ставка от 0% по налогу на прибыль. Выгодные условия для развития проектов.</p></div><div class="service-card reveal up hide-link" style="transition-delay:.3s"><div class="service-icon">💼</div><h3>Калькулятор тарифов</h3><p>Удобный инструмент для расчёта возможностей вашего инвестиционного капитала в Санкт-Петербурге.</p></div></div></div></section>
+
+<footer id="contact"><div class="footer-grid"><div class="reveal up"><h4>Инвестиционный портал Санкт-Петербурга</h4><p>Единое окно для инвестора — комплексное сопровождение проектов.</p></div><div class="reveal up" style="transition-delay:.1s"><h4>Контакты</h4><a href="tel:+78122461661">+7 (812) 246-16-61</a><p>Санкт-Петербург, ул. Новгородская, д. 20, лит. А</p></div><div class="reveal up" style="transition-delay:.2s"><h4>Ссылки</h4><a href="https://spbinvestment.ru" target="_blank">spbinvestment.ru</a><a href="#about">О городе</a><a href="#services">Сервисы</a></div></div><div class="copy">© 2025 Путеводитель инвестора · Санкт-Петербург</div></footer>
+
+<script>
+// =========================================
+// 1. СЛАЙДЕР (Левая колонка — 5 объектов)
+// =========================================
+const slideData = [
+    { 
+        img: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80', 
+        text: 'СКА АРЕНА — 21 500 / 23 000 мест' 
+    },
+    { 
+        img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80', 
+        text: 'ЛАХТА ЦЕНТР — 462 метра' 
+    },
+    { 
+        img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80', 
+        text: 'ЗАПАДНЫЙ СКОРОСТНОЙ ДИАМЕТР' 
+    },
+    { 
+        img: 'https://images.unsplash.com/photo-1436491865332-7a61a109bb05?w=800&q=80', 
+        text: 'АЭРОПОРТ ПУЛКОВО' 
+    },
+    { 
+        img: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80', 
+        text: 'ВСЕСЕЗОННЫЙ КУРОРТ «МАРИНА»' 
+    }
+];
+
+let currentSlide = 0;
+const slideImg = document.getElementById('slideImg');
+const slideTextEl = document.getElementById('slideText');
+const dotsContainer = document.getElementById('sliderDotsContainer');
+
+function initSlider() {
+    dotsContainer.innerHTML = slideData.map((_, i) => 
+        `<button class="slider-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></button>`
+    ).join('');
+    
+    updateSlide(0);
+
+    dotsContainer.addEventListener('click', (e) => {
+        const dot = e.target.closest('.slider-dot');
+        if (!dot) return;
+        const idx = parseInt(dot.dataset.index);
+        if (idx !== currentSlide) {
+            updateSlide(idx);
+        }
+    });
+}
+
+function updateSlide(index) {
+    currentSlide = index;
+    const data = slideData[index];
+    
+    slideImg.src = data.img;
+    slideTextEl.textContent = data.text;
+    
+    document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+}
+
+// =========================================
+// 2. ТАЙМЛАЙН (Без изменений)
+// =========================================
+const projectsData = [
+{year:'2007', title:'Бизнес-центр «Балтийская жемчужина»', desc:'Многофункциональный комплекс, открывший новую веху делового развития юго-западной части Петербурга.', img:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80'},
+{year:'2011', title:'Городской парк «Остров Новая Голландия»', desc:'Современное общественное пространство в историческом сердце города с парком, культурой и гастрономией.', img:'https://images.unsplash.com/photo-1598387993441-a364f4d5a08e?w=400&q=80'},
+{year:'2013', title:'Мариинский театр (новая сцена)', desc:'Вторая сцена легендарного театра — флагман современного российского театрального искусства.', img:'https://images.unsplash.com/photo-1507676184212-d9ab0cdaaca4?w=400&q=80'},
+{year:'2016', title:'Западный скоростной диаметр', desc:'Внутригородская платная скоростная магистраль.', img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80', multi:true, subprojects:[
+{title:'Западный скоростной диаметр', desc:'Транспортная артерия, соединившая север и юг города, сократив время в пути до 40 минут.', img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80'},
+{title:'Стадион «Газпром Арена»', desc:'Современный футбольный стадион мирового уровня, принимавший матчи ЧМ-2018 и Евро-2020.', img:'https://images.unsplash.com/photo-1566646108886-5ed77370da3f?w=400&q=80'},
+{title:'«Остров фортов» в Кронштадте', desc:'Музейно-исторический парк, посвящённый трёхвековой истории Военно-морского флота России.', img:'https://images.unsplash.com/photo-1602359302849-2b68e0a9b736?w=400&q=80'}
+]},
+{year:'2019', title:'Трамвайная линия «Чижик»', desc:'Первый в России проект частной концессии в сфере городского рельсового транспорта.', img:'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&q=80'},
+{year:'2021', title:'Гостиница «Вавельберг»', desc:'Реставрация исторического дома Вавельберга на Невском проспекте под пятизвёздочный отель.', img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80'},
+{year:'2023', title:'Стадион «СКА Арена»', desc:'Самый большой ледовый стадион в мире: 21 500 человек для хоккея, 23 000 для концертов.', img:'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&q=80'},
+{year:'2024', title:'Широтная магистраль скоростного движения', desc:'Новая транспортная артерия, связывающая ключевые районы Петербурга.', img:'https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=400&q=80'},
+{year:'2025', title:'Трамвайная линия «Славянка»', desc:'Маршрут «ст. м. Купчино — пос. Шушары — Славянка».', img:'https://images.unsplash.com/photo-1575695342320-d2d2d2f0bb73?w=400&q=80'},
+{year:'∞', title:'Новые проекты Санкт-Петербурга', desc:'Лахта Центр-2 (703 м), ВСМ Москва—СПб, Пулково-2 и десятки других проектов.', img:'https://images.unsplash.com/photo-1556610961-2fecc5927173?w=400&q=80'}
+];
+
+function getCatmullRomPath(points, segments=50){
+if(points.length<2) return '';
+const coords = points.map(p => ({x: p.x, y: p.y}));
+let path = `M ${coords[0].x},${coords[0].y}`;
+for(let i=0;i<coords.length-1;i++){
+const p0=coords[i], p1=coords[i+1];
+const p_prev = i>0 ? coords[i-1] : p0;
+const p_next = i+2<coords.length ? coords[i+2] : p1;
+for(let s=1;s<=segments;s++){
+const t=s/segments, t2=t*t, t3=t2*t;
+const x = 0.5*((2*p1.x) + (-p_prev.x+p_next.x)*t + (2*p_prev.x-5*p1.x+4*p_next.x-p_next.x)*t2 + (-p_prev.x+3*p1.x-3*p_next.x+p_next.x)*t3);
+const y = 0.5*((2*p1.y) + (-p_prev.y+p_next.y)*t + (2*p_prev.y-5*p1.y+4*p_next.y-p_next.y)*t2 + (-p_prev.y+3*p1.y-3*p_next.y+p_next.y)*t3);
+path += ` L ${x},${y}`;
+}
+}
+return path;
+}
+function renderTimeline(){
+const svg = document.querySelector('.timeline-svg');
+const pathEl = document.getElementById('timelinePath');
+const pointsCoords = [
+{x:45, y:220}, {x:150, y:140}, {x:260, y:290}, {x:370, y:180},
+{x:520, y:320}, {x:650, y:145}, {x:770, y:255}, {x:890, y:310}, {x:1010, y:165}, {x:1135, y:220}
+];
+if(pathEl) pathEl.setAttribute('d', getCatmullRomPath(pointsCoords,55));
+const oldDots = svg.querySelectorAll('.tl-dot');
+oldDots.forEach(dot=>dot.remove());
+pointsCoords.forEach((coord,idx)=>{
+const group = document.createElementNS('http://www.w3.org/2000/svg','g');
+group.classList.add('tl-dot');
+group.setAttribute('data-index', idx);
+const outer = document.createElementNS('http://www.w3.org/2000/svg','circle');
+outer.setAttribute('cx',coord.x); outer.setAttribute('cy',coord.y); outer.setAttribute('r',38); outer.classList.add('outer');
+const inner = document.createElementNS('http://www.w3.org/2000/svg','circle');
+inner.setAttribute('cx',coord.x); inner.setAttribute('cy',coord.y); inner.setAttribute('r',22); inner.classList.add('inner');
+const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+text.setAttribute('x',coord.x); text.setAttribute('y',coord.y+6);
+text.textContent = projectsData[idx].year;
+group.appendChild(outer); group.appendChild(inner); group.appendChild(text);
+svg.appendChild(group);
+});
+}
+function buildPopupContent(project){
+const innerDiv = document.getElementById('popupInner');
+if(!innerDiv) return;
+if(project.multi && project.subprojects){
+innerDiv.innerHTML = `<div class="popup-grid">${project.subprojects.map(sub=>`
+<div class="popup-item">
+<img class="popup-item-img" src="${sub.img}" alt="${sub.title}" onerror="this.src='https://images.unsplash.com/photo-1556610961-2fecc5927173?w=400&q=80'">
+<div class="popup-item-info">
+<div class="popup-item-year">${project.year}</div>
+<div class="popup-item-title">${sub.title}</div>
+<div class="popup-item-desc">${sub.desc}</div>
+</div>
+</div>`).join('')}</div>`;
+} else {
+innerDiv.innerHTML = `<div class="popup-item"><img class="popup-item-img" src="${project.img}" onerror="this.src='https://images.unsplash.com/photo-1556610961-2fecc5927173?w=400&q=80'"><div class="popup-item-info"><div class="popup-item-year">${project.year}</div><div class="popup-item-title">${project.title}</div><div class="popup-item-desc">${project.desc}</div></div></div>`;
+}
+}
+function attachPopupEvents(){
+const dots = document.querySelectorAll('.tl-dot');
+const popup = document.getElementById('tlPopup');
+const container = document.getElementById('timelineWrap');
+dots.forEach(dot=>{
+dot.addEventListener('mouseenter',(e)=>{
+const idx = parseInt(dot.getAttribute('data-index'));
+const project = projectsData[idx];
+buildPopupContent(project);
+const isMulti = !!(project.multi && project.subprojects);
+if(isMulti) popup.classList.add('multi'); else popup.classList.remove('multi');
+const outerCircle = dot.querySelector('.outer');
+if(!outerCircle) return;
+const circleRect = outerCircle.getBoundingClientRect();
+const containerRect = container.getBoundingClientRect();
+const circleCenterX = circleRect.left + circleRect.width/2;
+const circleBottomY = circleRect.bottom;
+const popupWidth = popup.offsetWidth;
+const popupHeight = popup.offsetHeight;
+let left = circleCenterX - containerRect.left - popupWidth/2;
+let top = circleBottomY - containerRect.top + 15;
+if(top + popupHeight > containerRect.height - 20) top = circleRect.top - containerRect.top - popupHeight - 15;
+left = Math.min(Math.max(left, 10), containerRect.width - popupWidth - 10);
+popup.style.left = left+'px';
+popup.style.top = top+'px';
+popup.classList.add('show');
+});
+dot.addEventListener('mouseleave',()=>{ setTimeout(()=>{ if(!popup.matches(':hover')) popup.classList.remove('show');},150); });
+});
+popup.addEventListener('mouseleave',()=>popup.classList.remove('show'));
+}
+
+// =========================================
+// 3. ИНИЦИАЛИЗАЦИЯ
+// =========================================
+document.addEventListener('DOMContentLoaded',()=>{
+    initSlider();
+    
+    renderTimeline();
+    attachPopupEvents();
+    const wrap = document.getElementById('timelineWrap');
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); document.querySelectorAll('.tl-dot').forEach(d=>d.classList.add('appear')); obs.unobserve(e.target); } }); },{threshold:0.2});
+    if(wrap) obs.observe(wrap);
+});
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
+
+const revealObserver = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); if(e.target.classList.contains('stat')){ const n=e.target.querySelector('.stat-num'); if(n&&!n.dataset.done){ animateCount(n); n.dataset.done='1'; } } revealObserver.unobserve(e.target); } }); },{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+function animateCount(el){ const t=parseFloat(el.dataset.target), d=parseInt(el.dataset.decimals||0), pre=el.dataset.prefix||'', suf=el.dataset.suffix||''; const dur=1800, start=performance.now(); function f(now){ const p=Math.min((now-start)/dur,1), e=1-Math.pow(1-p,3); el.textContent=pre+(t*e).toFixed(d)+suf; if(p<1) requestAnimationFrame(f); } requestAnimationFrame(f); }
+document.querySelectorAll('.service-card:not(.hide-link), .stat').forEach(card=>{ card.addEventListener('mousemove',e=>{ const r=card.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5; card.style.transform=`perspective(1000px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-10px)`; }); card.addEventListener('mouseleave',()=>card.style.transform=''); });
+</script>
+</body>
+</html>
