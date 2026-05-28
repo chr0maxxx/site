@@ -9,15 +9,13 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
 --bg:#ffffff;
+--card:#ffffff;
 --text:#1a1f2b; 
 --muted:#4a5b6e;
---accent:#181F39; /* Синий */
---accent-2:#CEE9FB; /* Голубой */
---gold: #C5A059; /* Золотой */
---red: #E30613; /* Красный */
---accent-light: #dce6f5;
+--accent:#181F39;
+--accent-2:#CEE9FB;
+--gold: #C5A059;
 --accent-glow: rgba(24,31,57,.12);
---card:#ffffff;
 --border:rgba(24,31,57,0.25);
 --shadow:0 8px 30px rgba(0,0,0,0.06);
 }
@@ -246,7 +244,7 @@ justify-content: center;
 .slide-text{
 font-family: 'Oswald', sans-serif;
 font-weight: 600;
-color: var(--red);
+color: var(--accent);
 font-size: clamp(20px, 3vw, 36px);
 letter-spacing: 1px;
 line-height: 1.2;
@@ -254,7 +252,7 @@ line-height: 1.2;
 .slide-desc{
 font-family: 'Roboto', sans-serif;
 font-weight: 400;
-color: var(--text);
+color: var(--muted);
 font-size: clamp(14px, 2vw, 18px);
 margin-top: 12px;
 line-height: 1.5;
@@ -277,7 +275,7 @@ cursor: pointer;
 transition: all .3s ease;
 }
 .slider-dot.active{
-background: var(--red);
+background: var(--accent);
 transform: scale(1.1);
 }
 .slider-dot:hover:not(.active){
